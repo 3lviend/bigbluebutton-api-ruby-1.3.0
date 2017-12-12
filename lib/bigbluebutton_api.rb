@@ -4,12 +4,12 @@ require 'cgi'
 require 'rexml/document'
 require 'digest/sha1'
 require 'rubygems'
-require_relative 'bigbluebutton_hash_to_xml'
-require_relative 'bigbluebutton_exception'
-require_relative 'bigbluebutton_formatter'
-require_relative 'bigbluebutton_modules'
-require_relative 'bigbluebutton_config_xml'
-require_relative 'bigbluebutton_config_layout'
+require 'bigbluebutton_hash_to_xml'
+require 'bigbluebutton_exception'
+require 'bigbluebutton_formatter'
+require 'bigbluebutton_modules'
+require 'bigbluebutton_config_xml'
+require 'bigbluebutton_config_layout'
 
 module BigBlueButton
 
@@ -707,7 +707,7 @@ module BigBlueButton
         puts "BigBlueButtonAPI: URL request = #{url}" if @debug
         url_parsed = URI.parse(url)
         http = Net::HTTP.new(url_parsed.host, url_parsed.port)
-        http.use_ssl = true
+        http.use_ssl = true if url_parsed.scheme.eql?("https")
         http.open_timeout = @timeout
         http.read_timeout = @timeout
         if data.nil?
